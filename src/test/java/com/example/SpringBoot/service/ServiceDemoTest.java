@@ -1,17 +1,22 @@
 package com.example.SpringBoot.service;
 
+import com.example.springboot.Application;
 import com.example.springboot.dao.DemoDao;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = Application.class)// 就是你springboot的启动类
 class ServiceDemoTest {
     @Autowired
     DemoDao demoDao;
     @Test
     public void testDemo() {
-        /*String rtn = demoDao.queryDemo();
-        System.out.println(rtn);*/
+        int rtn = demoDao.queryDemo();
+        System.out.println(rtn);
     }
 }

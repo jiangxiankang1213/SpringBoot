@@ -9,12 +9,10 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
 
 mybatis:
-  mapper-locations: classpath:mapping/*Mapper.xml
+  mapper-locations: classpath:mapper/*Mapper.xml
   type-aliases-package: com.example.springboot.mapper
 
-#showSql
+
+# log4j2 日志配置
 logging:
-  level:
-    com:
-      example:
-        mapper : debug
+  config: classpath:log4j2.xml

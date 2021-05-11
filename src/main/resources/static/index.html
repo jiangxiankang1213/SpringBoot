@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .highcharts-axis-line {
+            fill: rgb(0, 194, 194);
+            stroke-linejoin: round;
+        }
+    </style>
+</head>
+<body>
+<div id="container" style="width: 600px;height:400px;"></div>
+<script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+<script>
+    Highcharts.wrap(Highcharts.Axis.prototype, "getLinePath", function(
+        p,
+        lineWidth
+    ) {
+        var linePath = p.call(this, lineWidth);
+        if (this.options.arrowOnEnd) {
+            var arrowFactor = 10,
+                x,
+                y,
+                arrowPath,
+                newPath;
+            if (this.horiz) {
+                x = linePath[4] = linePath[4] - arrowFactor;
+                y = linePath[5];
+                arrowPath = [
+                    "L",
+                    x - 0.35 * arrowFactor,
+                    y - 0.35 * arrowFactor,
+                    "L",
+                    x + 1 * arrowFactor,
+                    y,
+                    "L",
+                    x - 0.35 * arrowFactor,
+                    y + 0.35 * arrowFactor,
+                    "L",
+                    x,
+                    y
+                ];
+                newPath = linePath.concat(arrowPath);
+            } else {
+                x = linePath[1];
+                y = linePath[2]; // + arrowFactor;
+                arrowPath = [
+                    "M",
+                    x,
+                    y,
+                    "L",
+                    x - 0.35 * arrowFactor,
+                    y + 0.35 * arrowFactor,
+                    "L",
+                    x,
+                    y - 1 * arrowFactor,
+                    "L",
+                    x + 0.35 * arrowFactor,
+                    y + 0.35 * arrowFactor,
+                    "L",
+                    x,
+                    y
+                ];
+                newPath = arrowPath.concat(linePath);
+            }
+            return newPath;
+        }
+        return linePath;
+    });
+    const chart = Highcharts.chart('container', {
+        title: {
+            text: '2010 ~ 2016 年太阳能行业就业人员发展情况werwe2'
+        },
+        credits: {
+            enabled: false
+        },
+        xAxis: {
+            gridLineWidth: 0,
+            arrowOnEnd: true,
+            lineColor: "rgb(0, 194, 194)",
+            lineWidth: 2,
+            tickLength: 0
+        },
+        yAxis: {
+            title: {
+                text: '就业人数'
+            },
+            gridLineWidth: 0,
+            arrowOnEnd: true,
+            lineColor: "rgb(0, 194, 194)",
+            lineWidth: 2,
+            tickLength: 0
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                pointStart: 2010
+            }
+        },
+        series: [{
+            name: '安装，实施人员',
+            data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]
+        }]
+    });
+</script>
+</body>
+</html>

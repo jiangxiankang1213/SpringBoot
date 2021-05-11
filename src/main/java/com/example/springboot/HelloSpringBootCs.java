@@ -24,7 +24,6 @@ public class HelloSpringBootCs {
      */
     @RequestMapping(path = {"/getParamDemo2"})
     public String getParamDemo2(@RequestParam(value = "param1", required = true) int param) {
-        System.out.println("get param " + param);
-        return "success get param";
+        return "haha";
     }
 }
